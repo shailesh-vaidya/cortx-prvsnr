@@ -25,7 +25,7 @@ from .. import config as cfg, values
 from ..errors import SaltCmdResultError
 from ..hare import ensure_cluster_is_healthy
 from ..pillar import KeyPath, PillarKey, PillarResolver
-from ..salt import local_minion_id, cmd_run
+from ..salt import local_minion_id, cmd_run, function_run
 from ..salt_minion import check_salt_minions_are_ready
 from ..vendor import attr
 
@@ -608,6 +608,46 @@ class Check(CommandParserFillerMixin):
             res.set_passed(checked_target=local_minion_id())
 
         return res
+
+    @staticmethod
+    def _gluster_peers(*, args: str) -> CheckEntry:
+        """
+        Check if glusterfs peers are connected
+
+        :param args:
+        :return:
+        """
+        pass
+
+    @staticmethod
+    def _gluster_mountings(*, args: str) -> CheckEntry:
+        """
+        Check if glusterfs clients are mounted
+
+        :param args:
+        :return:
+        """
+        pass
+
+    @staticmethod
+    def _gluster_volumes(*, args: str) -> CheckEntry:
+        """
+        Check if glusterfs volumes are healthy
+
+        :param args:
+        :return:
+        """
+        pass
+
+    @staticmethod
+    def _gluster_io(*, args: str) -> CheckEntry:
+        """
+        Check that dummy IO on the mounted volumes works
+
+        :param args:
+        :return:
+        """
+        pass
 
     def run(self, check_name: cfg.Checks = None,
             check_args: str = "") -> CheckResult:
