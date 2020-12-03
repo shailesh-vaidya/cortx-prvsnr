@@ -466,6 +466,11 @@ elif [[ -e ${flag_file_dir}/${tgt_node}.multipath
     l_info "Stage 2.0: Applying update repo (if exists)..."
     l_info "=================================================="
     $cmd salt ${tgt_node} state.apply components.misc_pkgs.swupdate.repo ${salt_opts}
+    $cmd salt ${tgt_node} state.apply components.provisioner.update
+    $cmd python3 -c 'from provisioner.salt_minion import config_salt_minions; config_salt_minion(s)'
+    $cmd python3 -c 'from provisioner.salt_master import config_salt_master; config_salt_master()'
+    $cmd systemctl restart salt-master salt-minion
+    
 
     if [[ "$run_all" == true ]]; then
 
